@@ -1,0 +1,17 @@
+development:
+  adapter: postgresql
+  encoding: unicode
+  database: touristr_development
+  pool: 5
+  username: gberger
+  password:
+
+test:
+  adapter: postgresql
+  encoding: unicode
+  database: touristr_test
+  pool: 5
+  username: gberger
+  password:
+
+# production: Heroku
