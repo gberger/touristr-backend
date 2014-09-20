@@ -3,9 +3,9 @@ class UsersController < ApplicationController
 
   # POST /users
   def login
-    user = User.find_by_uid(params[:uid])
+    user = User.find_by_uid(params[:userID])
     if user.nil?
-      user = User.new(user_params)
+      user = User.new_from_facebook(user_params)
       if user.save
         render json: user, status: :created
       else
@@ -17,6 +17,6 @@ class UsersController < ApplicationController
   end
 
   def user_params
-    params.permit(:provider, :uid, :name, :oauth_token, :oauth_token_expires_at)
+    params.permit(:userID, :accessToken, :expiresIn, :signedRequest)
   end
 end

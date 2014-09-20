@@ -9,7 +9,7 @@ class Trip < ActiveRecord::Base
   def find_candidates
     Trip.includes(:user)
       .where("id NOT IN (:d) AND user_id != :user_id AND city = :city AND (start_date <= :end_date OR end_date <= :start_date)",
-               d: decided_candidates.select(:id), user_id: user_id, city: city, start_date: start_date, end_date: end_date)
+               d: decided_candidates.select(:trip_b_id), user_id: user_id, city: city, start_date: start_date, end_date: end_date)
   end
 
   def decided_candidates
