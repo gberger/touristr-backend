@@ -36,6 +36,13 @@ describe "Trips" do
         expect(response.status).to eq(401)
       end
     end
+
+    describe "GET /trips/:id/candidates" do
+      it "denies access" do
+        get trip_candidates_path(1)
+        expect(response.status).to eq(401)
+      end
+    end
   end
 
   context "with incorrect API key" do
@@ -63,6 +70,13 @@ describe "Trips" do
     describe "DELETE /trips/:id" do
       it "deny access" do
         delete trip_path(@trip.id), nil, @headers
+        expect(response.status).to eq(403)
+      end
+    end
+
+    describe "GET /trips/:id" do
+      it "deny access" do
+        get trip_candidates_path(@trip.id), nil, @headers
         expect(response.status).to eq(403)
       end
     end
@@ -140,6 +154,21 @@ describe "Trips" do
       it "creates a new trip" do
         expect {delete trip_path(@trip.id), nil, @headers}
         .to change{Trip.count}.by(-1)
+      end
+    end
+
+    describe "GET /trips/:id/candidates" do
+      it "allows access" do
+        get trip_candidates_path(@trip.id), nil, @headers
+        expect(response.status).to eq(200)
+      end
+
+      it "retrieves the user's trips" do
+        other_user = create(:user)
+        other_trip = create(:trip, user: other_user)
+        get trip_candidates_path(@trip.id), nil, @headers
+        expect(json.length).to be(1)
+        expect(json.last['id']).to eq(other_trip.id)
       end
     end
   end

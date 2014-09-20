@@ -2,6 +2,7 @@ Rails.application.routes.draw do
 
   post 'users' => 'users#login'
   resources :trips, except: [:new, :edit]
+  get 'trips/:id/candidates' => 'trips#find_candidates', as: 'trip_candidates'
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
