@@ -16,7 +16,7 @@ class CandidatesController < ApplicationController
     @trip_b = Trip.find(params[:b_id])
 
     authorize! :manage, @trip_a
-    @connection = TripConnection.where(trip_a: @trip_a, trip_b: @trip_b).first_or_initialize
+    @connection = TripConnection.for_trips(@trip_a, @trip_b)
     @connection.status = :accepted
     if connection.save
       head :ok
@@ -31,7 +31,7 @@ class CandidatesController < ApplicationController
     @trip_b = Trip.find(params[:b_id])
 
     authorize! :manage, @trip_a
-    @connection = TripConnection.where(trip_a: @trip_a, trip_b: @trip_b).first_or_initialize
+    @connection = TripConnection.for_trips(@trip_a, @trip_b)
     @connection.status = :rejected
     if connection.save
       head :ok

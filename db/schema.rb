@@ -16,7 +16,7 @@ ActiveRecord::Schema.define(version: 20140920081633) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
-  create_table "trip_connections", id: false, force: true do |t|
+  create_table "trip_connections", force: true do |t|
     t.integer  "trip_a_id",              null: false
     t.integer  "trip_b_id",              null: false
     t.integer  "status",     default: 0, null: false
