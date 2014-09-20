@@ -27,9 +27,5 @@ describe TripsController do
       expect(delete("/trips/1")).to route_to("trips#destroy", :id => "1")
     end
 
-    it "routes to #find_candidates" do
-      expect(get("/trips/1/candidates")).to route_to("trips#find_candidates", :id => "1")
-    end
-
   end
 end

@@ -50,16 +50,6 @@ class TripsController < ApplicationController
     head :no_content
   end
 
-  # GET /trips/1/candidates
-  def find_candidates
-    @trip = Trip.find(params[:id])
-
-    authorize! :manage, @trip
-
-    cand = @trip.find_candidates
-    render json: cand.to_json(include: :user)
-  end
-
   private
 
   def trip_params

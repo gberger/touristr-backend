@@ -2,7 +2,9 @@ Rails.application.routes.draw do
 
   post 'users' => 'users#login'
   resources :trips, except: [:new, :edit]
-  get 'trips/:id/candidates' => 'trips#find_candidates', as: 'trip_candidates'
+  get 'trips/:id/candidates' => 'candidates#find', as: 'candidate_find'
+  post 'trips/:a_id/candidates/:b_id/acceptation' => 'candidates#accept', as: 'candidate_accept'
+  post 'trips/:a_id/candidates/:b_id/rejection'   => 'candidates#reject', as: 'candidate_reject'
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
