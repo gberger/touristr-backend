@@ -1,7 +1,7 @@
-class CandidatesController < ApplicationController
+class MatchesController < ApplicationController
 
   # GET /trips/1/matches
-  def find
+  def index
     @trip = Trip.find(params[:id])
 
     authorize! :manage, @trip

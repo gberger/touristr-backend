@@ -17,7 +17,7 @@ class Trip < ActiveRecord::Base
   end
 
   def matches
-    Trip.find_by_sql("
+    Trip.includes(:user).find_by_sql("
       select t.*
       from trips t
       inner join trip_connections c1 on c1.trip_a_id = #{id} and c1.trip_b_id = t.id and c1.status = 2

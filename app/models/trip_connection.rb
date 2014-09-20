@@ -11,14 +11,20 @@ class TripConnection < ActiveRecord::Base
   end
 
   def self.for_trips(a, b)
-    self.where(trip_a: a.id, trip_b: b.id).first_or_initialize
+    self.where(trip_a_id: a.id, trip_b_id: b.id).first_or_initialize
   end
 
   def reversed
-    TripConnection.find(trip_a: trip_b, trip_b: trip_a)
+    TripConnection.for_trips(trip_b, trip_a)
   end
 
   def mutual?
     accepted? && reversed.accepted?
+  end
+
+  def messages
+    Message.where("(trip_a_id = :aid AND trip_b_id = :bid) OR (trip_a_id = :bid AND trip_b_id = :aid)",
+      aid: trip_a_id, bid: trip_b_id)
+      .order(created_at: :desc)
   end
 end
