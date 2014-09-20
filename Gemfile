@@ -15,13 +15,9 @@ gem 'bcrypt-ruby', '~> 3.1.2'
 # Use unicorn as the app server
 gem 'unicorn'
 
-gem 'cancancan', '~> 1.9'
+gem 'cancan'
 
 group :test, :development do
-  gem 'better_errors'
-  gem 'binding_of_caller'
-  gem 'pry'
-  gem 'spring'
   gem 'factory_girl_rails'
   gem 'rspec-rails'
   gem 'its'

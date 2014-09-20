@@ -5,7 +5,7 @@ class UsersController < ApplicationController
   def login
     user = User.find_by_uid(params[:uid])
     if user.nil?
-      user = User.new_from_params(user_params)
+      user = User.new(user_params)
       if user.save
         render json: user, status: :created
       else

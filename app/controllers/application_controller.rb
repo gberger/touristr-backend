@@ -1,4 +1,6 @@
 class ApplicationController < ActionController::API
+  include CanCan::ControllerAdditions
+
   def provided_api_key
     params[:api_key] || request.headers['X-API-Key'] || nil
   end

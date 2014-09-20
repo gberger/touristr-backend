@@ -2,7 +2,12 @@ class Ability
   include CanCan::Ability
 
   def initialize(user)
-    can :manage, :all
+    user ||= User.new
+
+    cannot :manage, Trip
+    can :manage, Trip do |trip|
+      trip.user == user
+    end
 
     # Define abilities for the passed in user here. For example:
     #
