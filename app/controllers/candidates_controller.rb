@@ -6,8 +6,8 @@ class CandidatesController < ApplicationController
 
     authorize! :manage, @trip
 
-    cand = @trip.find_candidates
-    render json: cand.to_json(include: :user)
+    @cand = @trip.find_candidates
+    render json: @cand.to_json(include: :user)
   end
 
   # POST /trips/1/candidates/2/acceptation
@@ -18,7 +18,7 @@ class CandidatesController < ApplicationController
     authorize! :manage, @trip_a
     @connection = TripConnection.for_trips(@trip_a, @trip_b)
     @connection.status = :accepted
-    if connection.save
+    if @connection.save
       head :ok
     else
       render json: {messages: @connection.errors.messages}, status: :bad_request
@@ -33,7 +33,7 @@ class CandidatesController < ApplicationController
     authorize! :manage, @trip_a
     @connection = TripConnection.for_trips(@trip_a, @trip_b)
     @connection.status = :rejected
-    if connection.save
+    if @connection.save
       head :ok
     else
       render json: {messages: @connection.errors.messages}, status: :bad_request
