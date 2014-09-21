@@ -5,6 +5,11 @@ class Trip < ActiveRecord::Base
                           join_table: "trip_connections",
                           foreign_key: "trip_a_id",
                           association_foreign_key: "trip_b_id"
+  validate :start_lt_end
+
+  def start_lt_end
+    start_date <= end_date
+  end
 
   def find_candidates
     Trip.includes(:user)
