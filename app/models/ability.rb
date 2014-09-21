@@ -8,6 +8,7 @@ class Ability
     can :manage, Trip do |trip|
       trip.user == user
     end
+    can :read, Trip
 
     # Define abilities for the passed in user here. For example:
     #

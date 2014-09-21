@@ -8,11 +8,11 @@ class TripsController < ApplicationController
 
   # GET /trips/1
   def show
-    @trip = Trip.find(params[:id])
+    @trip = Trip.includes(:user).find(params[:id])
 
     authorize! :read, @trip
 
-    render json: @trip
+    render json: @trip.to_json(include: :user)
   end
 
   # POST /trips
@@ -53,6 +53,6 @@ class TripsController < ApplicationController
   private
 
   def trip_params
-    params.permit(:city, :start_date, :end_date)
+    params.permit(:city, :start_date, :end_date, :purpose)
   end
 end

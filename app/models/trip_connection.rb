@@ -25,6 +25,6 @@ class TripConnection < ActiveRecord::Base
   def messages
     Message.where("(trip_a_id = :aid AND trip_b_id = :bid) OR (trip_a_id = :bid AND trip_b_id = :aid)",
       aid: trip_a_id, bid: trip_b_id)
-      .order(created_at: :desc)
+      .order(created_at: :asc)
   end
 end
